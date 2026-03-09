@@ -1,7 +1,7 @@
 name: Push Note to TRMNL
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 */4 * * *'
   workflow_dispatch:
 
 jobs:
