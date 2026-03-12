@@ -41,7 +41,6 @@ def main():
             'type': note.get('type', 'note')[:30],
             'tags': tags,
             'body': truncate_text(note.get('body', ''), MAX_BODY_LENGTH),
-            'source': str(note.get('source', ''))[:100],
         }
     }
 
