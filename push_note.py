@@ -3,6 +3,7 @@
 
 import json
 import random
+import re
 import requests
 import os
 import sys
@@ -44,6 +45,9 @@ def main():
             if idx != -1:
                 body = body[idx:].lstrip('\n')
                 break
+
+    # Strip the references section from the end of the body
+    body = re.split(r'\n\s*references\s*\n?', body, flags=re.IGNORECASE)[0].rstrip()
 
     payload = {
         'merge_variables': {
