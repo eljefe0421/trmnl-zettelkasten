@@ -34,13 +34,23 @@ def main():
     notes = load_notes()
     note = random.choice(notes)
 
-    tags = ", ".join(note.get('tags', [])[:5])
+    title = note.get('title', 'Untitled')
+    body = note.get('body', '')
+
+    # Strip the repeated title from the start of the body
+    for sep in ['\n\n', '\n']:
+        if body.lower().startswith(title.lower()[:20]):
+            idx = body.find(sep)
+            if idx != -1:
+                body = body[idx:].lstrip('\n')
+                break
+
     payload = {
         'merge_variables': {
-            'title': note.get('title', 'Untitled')[:100],
+            'title': title[:100],
             'type': note.get('type', 'note')[:30],
-            'tags': tags,
-            'body': truncate_text(note.get('body', ''), MAX_BODY_LENGTH),
+            'body': truncate_text(body, MAX_BODY_LENGTH),
+            'source': '',
         }
     }
 
